@@ -4,36 +4,46 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="mystyle.css">
     <title>Document</title>
 </head>
 <body>
-    <div id="signup-wrapper">
-        <h2>Sign Up</h2>
-    </div>
-    <div>
-        <input id="first-name" placeholder="First Name">
-        <input id="last-name" placeholder="Last Name">
-    </div>
-    <div>
-        <input id="mobile-number" placeholder="Mobile No.">
-    </div>
-    <input id="email-address" placeholder="Email Address">
-    <div>
-        <input id="password" placeholder="Password">
-        <input id="confirm-password" placeholder="Confirm Password">
-    </div>
-    <div>
-        <input type="checkbox" id="accept-checkbox">
-        <label for="accept-checkbox">I Agree</label>
-        <p>
-            By clicking <span>Register</span>, you agree to the <span>Terms and Conditions</span> set out by this site, including our Cookie Use.
-        </p>
-    </div>
-    <div>
-        <button id="register-button">Register</button>
-        <button id="signin-button">Sign In</button>
-    </div>
+    <div class="wrapper-card">
+        <!-- Title -->
+        <div class="title">
+            <h2>Sign Up</h2>
+        </div>
+        <!-- Form details -->
+        <div class="details">
+            <div class="full-name">
+                <input class="name" placeholder="First Name">
+                <input class="name" placeholder="Last Name">
+            </div>
+            <div class="mobile-no">
+            <input class="mobile-no" placeholder="Mobile No.">
+            </div>
+            <input class="email" placeholder="Email Address">
+            <div class="full-name">
+                <input class="name" placeholder="Password">
+                <input class="name" placeholder="Confirm Password">
+            </div>
+        </div>
 
-
+        <div class="disclaimer">
+            <div class="disclaimer-checkbox">
+                <input type="checkbox">
+                <label class="checkbox-label" for="accept-checkbox">I Agree</label>
+            </div>
+            <div class="disclaimer-text">
+                <p>
+                    By clicking <span class="register-span">Register</span>, you agree to the <span class="term">Terms and Conditions</span> set out by this site, including our Cookie Use.
+                </p>
+            </div>
+        </div>
+        <div class="full-name">
+            <button class="name register-btn">Register</button>
+            <button class="name signin-btn">Sign In</button>
+        </div>
+    </div>
 </body>
 </html>

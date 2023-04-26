@@ -1,0 +1,107 @@
+
+body {
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    align-items: center;
+}
+
+.wrapper-card {
+    max-width: 600px;
+    background-color: white;
+    width: 60%;
+    padding: 10px 10px;
+    box-sizing: border-box;
+}
+
+.wrapper-card .title {
+    display: flex;
+    justify-content: center;
+}
+
+.wrapper-card .details {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.wrapper-card .full-name {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.wrapper-card .name {
+    width: 48%;
+    box-sizing: border-box;
+}
+
+.wrapper-card .mobile-no {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.wrapper-card .email {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+
+.wrapper-card input{
+    height: 45px;
+    max-width: 600px;
+    border-radius: 8px;
+    margin: 5px 0px;
+    border: 1px solid lightgray;
+    padding: 0px 15px;
+    /* width: 50%;
+    max-width: 200px; */
+}
+
+.wrapper-card .disclaimer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.wrapper-card .disclaimer-checkbox {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.wrapper-card .checkbox-label {
+    padding-left: 8px;
+}
+    
+.wrapper-card .disclaimer-text {
+    max-width: 450px;
+    text-align: left;
+}
+
+.wrapper-card .register-btn {
+    background-color: #039dfc
+}
+
+.wrapper-card .signin-btn {
+    background-color: #05ad3d;
+}
+
+.wrapper-card button {
+    color: white;
+    height: 45px;
+    font-size: 18px;
+    width: 48%;
+    box-sizing: border-box;
+    border-radius: 8px;
+    border: 1px solid lightgray;
+}
+
+.wrapper-card .register-span {
+    background-color: #039dfc;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 5px;
+}
+
+.wrapper-card .term {
+    color: #057be3;
+}
