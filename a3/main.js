@@ -2,7 +2,7 @@
 // 1. reverse a number.
 const reverseNumber = num => parseInt(num.toString().split('').reverse().join('')) * Math.sign(num);
 
-// 2. check if given string is a palindrome
+// 2. check if given string is a palindrome.
 const isPalindrome = str => {
     let reversed = str.split('').reverse().join('');
     return reversed === str;
@@ -158,7 +158,7 @@ const convertToCoin = (amount, coins) => {
     }
 }
 
-// 15. compute b^b, both of which are input taken from the user.
+// 15. compute b^n, both of which are input taken from the user.
 const calcExpo = () => {
     const readline = require('readline').createInterface({
         input: process.stdin,
