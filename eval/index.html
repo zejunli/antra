@@ -5,18 +5,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>Document</title>
+    <title>Word Guessing Game</title>
+    <script src="script.js" defer></script>
 </head>
 <body>
     <div class="wrappercard">
         <header class="wrappercard__header">Word Guessing Game</header>
         <div class="wrappercard__chance" id="chance">0 / 10</div>
-        <div class="wrappercard__word" id="guess-word"><span class="wrappercard__word__letter">H</span>
+        <div class="wrappercard__word" id="guess-word">
+            <!-- <span class="wrappercard__word__letter">H</span>
             <span class="wrappercard__word__letter">_</span>
-            <span class="wrappercard__word__letter">R</span>
+            <span class="wrappercard__word__letter">R</span> -->
         </div>
-        <input class="wrappercard__guessinput" type="text">
-        <button class="wrappercard__newgamebtn" type="button" id="new-game-btn">New Game</button>
+        <input class="wrappercard__guessinput" type="text" id="user-input" maxlength="1">
+        <button class="wrappercard__new-game-btn" type="button" id="new-game-btn">New Game</button>
     </div>
 </body>
 </html>
