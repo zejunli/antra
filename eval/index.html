@@ -4,13 +4,19 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>Document</title>
 </head>
 <body>
-    <head>Word Guessing Game</head>
-    <div>0 / 10</div>
-    <div>HEL_O</div>
-    <input type="text">
-    <button type="button">New Game</button>
+    <div class="wrappercard">
+        <header class="wrappercard__header">Word Guessing Game</header>
+        <div class="wrappercard__chance">0 / 10</div>
+        <div class="wrappercard__word"><span class="wrappercard__word__letter">H</span>
+            <span class="wrappercard__word__letter">_</span>
+            <span class="wrappercard__word__letter">R</span>
+        </div>
+        <input class="wrappercard__guessinput" type="text">
+        <button class="wrappercard__newgamebtn" type="button">New Game</button>
+    </div>
 </body>
 </html>
