@@ -16,7 +16,8 @@ const GetRandomWordAPI = (apiURL => {
     }
 })(API)
 
-GetRandomWordAPI.getWord.then(data => console.log(data[0]));
+// GetRandomWordAPI.getWord.then(data => console.log(data[0]));
 
+// const View = (
 
-
+// )
