@@ -27,7 +27,8 @@ const View = (() => {
         chance: "#chance",
         guessWord: "#guess-word",
         btn: "#new-game-btn",
-        inputBox: "#user-input"
+        inputBox: "#user-input",
+        historyList: "#history-list",
     }
     
     // this function wraps each letter with a <span>, this is so we can customize
@@ -40,6 +41,16 @@ const View = (() => {
         return template;
     }
 
+    const createHistoryTemplate = () => {
+        let template = '';
+        for (let i = 0; i < 26; ++i) {
+            let currentChar = String.fromCharCode(97 + i);
+            template += '<li id="' + currentChar +  '" class="wrappercard__letter-table__letter wrappercard__letter-table__letter--avail">' + 
+                    currentChar + '</li>';
+        }
+        return template;
+    }
+
     const render = (element, template) => {
         element.innerHTML = template;
     }
@@ -47,13 +58,14 @@ const View = (() => {
     return {
         domSelector,
         createWordTemplate,
-        render
+        createHistoryTemplate,
+        render,
     }
 })();
 
 
 const Model = ((api, view) => {
-    const { domSelector, createWordTemplate, render } = view;
+    const { domSelector, createWordTemplate, createHistoryTemplate, render } = view;
     const { getWord } = api;
 
     class State {
@@ -65,6 +77,7 @@ const Model = ((api, view) => {
             this._used = 0;
             // the number of words guessed right.
             this._hit = 0;
+            this._history = [];
         }
 
         get guessWord() {
@@ -85,6 +98,10 @@ const Model = ((api, view) => {
 
         get hit() {
             return this._hit;
+        }
+
+        get history() {
+            return this._history;
         }
 
         set newDisplayedWord(word) {
@@ -128,6 +145,28 @@ const Model = ((api, view) => {
         set hit(target) {
             this._hit = target;
         }
+
+        set history(target) {
+            this._history = target;
+        }
+
+        // this renders the 'raw' history, i.e. no letter has been used.
+        // should be used when the word changes as the correctness of the used letter
+        // is bound by the word itself.
+        renderHistory() {
+            const listEle = document.querySelector(domSelector.historyList);
+            let template = createHistoryTemplate();
+            listEle.innerHTML = template;
+        }
+        
+        // this function marks used letter in history section in red/green.
+        markLetter(letter, isCorrect) {
+            const letterEle = document.querySelector('#' + letter);
+            letterEle.classList.remove("wrappercard__letter-table__letter--avail");
+            let targetClass = isCorrect ? "wrappercard__letter-table__letter--correct" : "wrappercard__letter-table__letter--wrong";
+            letterEle.classList.add(targetClass);
+            this._history.push(letter);
+        }
     }
 
     return {
@@ -157,7 +196,7 @@ const Controller = ((view, model) => {
             }
 
             let originalWord = data[0].split('');
-            // Generate a random length.
+            // Generate a random length ranging from [1, length of word] inclusive on both ends.
             let randomLen = Math.floor(Math.random() * originalWord.length) + 1;
 
             // For this random length, generate random index one at a time and 
@@ -171,6 +210,10 @@ const Controller = ((view, model) => {
             displayWord = originalWord.join('');
             state.newGuessWord = data[0];
             state.newDisplayedWord = displayWord;
+            state.history = [];
+
+            // render raw history.
+            state.renderHistory();
         });
     }
 
@@ -178,7 +221,7 @@ const Controller = ((view, model) => {
         const newGameBtn = document.querySelector(domSelector.btn);
         const inputBox = document.querySelector(domSelector.inputBox);
         
-        // On clicking 'New Game', a new random word is retrieved a set up for guess.
+        // On clicking 'New Game', a new random word is retrieved and set up for guess.
         newGameBtn.addEventListener('click', () => {
             init(true, false);
         });
@@ -188,8 +231,14 @@ const Controller = ((view, model) => {
             console.log(inputBox.value);
             let inputChar = inputBox.value;
 
+            if (state.history.includes(inputChar)) {
+                window.alert("You have already tried this letter!(Letter: " + inputChar + ')');
+                setTimeout(() => {inputBox.value = ''}, 200);
+                return ;
+            }
             // Check if the guessed character hits.
             if (inputChar in state.hiddenChars) {
+                state.markLetter(inputChar, true);
                 // hit, reveal the letters being hit.
                 let currentDisplay = state.displayedWord;
                 currentDisplay = currentDisplay.split('');
@@ -216,6 +265,7 @@ const Controller = ((view, model) => {
                 }
             } else {
                 // miss, need to update chance.
+                state.markLetter(inputChar, false);
                 state.used = state.used + 1;
                 state.newChance = state.used + ' / ' + MAX_CHANCE;
                 setTimeout(() => {inputBox.value = ''}, 200);
