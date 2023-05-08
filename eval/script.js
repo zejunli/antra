@@ -7,7 +7,8 @@ Project: Word Guessing Game With MVC Pattern.
 */
 
 const API = 'https://random-word-api.herokuapp.com/word'
-const MAX_CHANCE = 10;
+const MAX_CHANCE = 9;
+const TIME_LIMIT = 60; // in seconds.
 
 // !This is currently not used!
 const GetRandomWordAPI = (apiURL => {
@@ -29,6 +30,7 @@ const View = (() => {
         btn: "#new-game-btn",
         inputBox: "#user-input",
         historyList: "#history-list",
+        timer: "#timer",
     }
     
     // this function wraps each letter with a <span>, this is so we can customize
@@ -45,7 +47,7 @@ const View = (() => {
         let template = '';
         for (let i = 0; i < 26; ++i) {
             let currentChar = String.fromCharCode(97 + i);
-            template += '<li id="' + currentChar +  '" class="wrappercard__letter-table__letter wrappercard__letter-table__letter--avail">' + 
+            template += '<li data-after="" id="' + currentChar +  '" class="wrappercard__letter-table__letter wrappercard__letter-table__letter--avail">' + 
                     currentChar + '</li>';
         }
         return template;
@@ -78,6 +80,7 @@ const Model = ((api, view) => {
             // the number of words guessed right.
             this._hit = 0;
             this._history = [];
+            this._timeLeft = TIME_LIMIT;
         }
 
         get guessWord() {
@@ -102,6 +105,10 @@ const Model = ((api, view) => {
 
         get history() {
             return this._history;
+        }
+
+        get timeLeft() {
+            return this._timeLeft;
         }
 
         set newDisplayedWord(word) {
@@ -150,6 +157,10 @@ const Model = ((api, view) => {
             this._history = target;
         }
 
+        set timeLeft(target) {
+            this._timeLeft = target;
+        }
+
         // this renders the 'raw' history, i.e. no letter has been used.
         // should be used when the word changes as the correctness of the used letter
         // is bound by the word itself.
@@ -166,6 +177,13 @@ const Model = ((api, view) => {
             let targetClass = isCorrect ? "wrappercard__letter-table__letter--correct" : "wrappercard__letter-table__letter--wrong";
             letterEle.classList.add(targetClass);
             this._history.push(letter);
+            letterEle.dataset.after = this._history.length;
+            letterEle.classList.add('wrappercard__letter-table__letter--order');
+        }
+
+        renderTimer() {
+            const timerEle = document.querySelector(domSelector.timer);
+            render(timerEle, this._timeLeft + '');
         }
     }
 
@@ -181,6 +199,17 @@ const Controller = ((view, model) => {
     const { domSelector } = view;
     const { State, getWord } = model;
 
+    let timerInterval;
+    const startTimer = () => {
+        console.log('running...');
+        state.timeLeft = state.timeLeft - 1;
+        state.renderTimer();
+        if (state.timeLeft === 0) {
+            clearInterval(timerInterval);
+            init(true, false);
+        }
+    }
+
     const state = new State();
     const init = (isNewGame, keepChance) => {
         fetch(API).then(res => res.json()).catch(err => console.log(err)).then(data => {
@@ -191,8 +220,12 @@ const Controller = ((view, model) => {
                     state.used = 0;
                     state.newChance = state.used + ' / ' + MAX_CHANCE
                     state.hit = 0;
+                    
+                    state.timeLeft = TIME_LIMIT;
+                    state.renderTimer();
+                    clearInterval(timerInterval);
+                    timerInterval = setInterval(startTimer, 1000);
                 }
-                console.log(state.used);
             }
 
             let originalWord = data[0].split('');
@@ -259,7 +292,6 @@ const Controller = ((view, model) => {
                 
                 // guesse this word right.
                 if (currentDisplay === state.guessWord) {
-                    console.log("CORRECT!");
                     state.hit = state.hit + 1;
                     init(true, true)
                 }
@@ -271,13 +303,13 @@ const Controller = ((view, model) => {
                 setTimeout(() => {inputBox.value = ''}, 200);
                 // exhausted all chances, pop up alert and reset the game.
                 if (state.used === MAX_CHANCE) {
+                    // clearInterval(timerInterval);
                     window.alert("Game Over! You have guessed " + state.hit + " words!");
                     init(true, false);
                     return ;
                 }
             }
-        })
-
+        });
     }
 
     const bootstrap = () => {

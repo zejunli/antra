@@ -18,14 +18,23 @@ body {
     width: 60vw;
     max-height: 100vh;
     max-width: 90vw;
-    background-color: #d3d3d3;
+    background-color: #dcdcdc;
     border-radius: 10px;
+}
+
+.wrappercard__timer {
+    display: flex;
+    justify-content: left;
+    width: 100%;
+    margin-left: 10%;
+    font-size: 3rem;
+    font-weight: bold;
+    color: tomato;
 }
 
 .wrappercard__header {
     font-size: 2.5em;
     font-weight: bold;
-    padding: 1.5vh 2.5vw;
     padding: 1vh 2.5vw 1.5vh;
 }
 
@@ -103,9 +112,11 @@ body {
     color: #2a2a2a;
 }
 
-.wrappercard__letter-table__letter--avail::after {
-    content: '1';
+.wrappercard__letter-table__letter--order::after {
+    content: attr(data-after);
     position: absolute;
-    font-size: 0.5rem;
+    font-size: 0.7rem;
     top: auto;
+    margin-left: 0.1vw;
 }
+
