@@ -6,3 +6,5 @@
 ![result for a3](./a3/result.png)
 # Evaluation base functionality result
 ![result for eval baseline](./eval/baseline.png)
+# Evaluation full functionality result
+![result for eval final](./eval/bonus.png)
