@@ -27,19 +27,19 @@ body {
     justify-content: left;
     width: 100%;
     margin-left: 10%;
-    font-size: 3rem;
+    font-size: 2.5vw;
     font-weight: bold;
     color: tomato;
 }
 
 .wrappercard__header {
-    font-size: 2.5em;
+    font-size: 2.5vw;
     font-weight: bold;
     padding: 1vh 2.5vw 1.5vh;
 }
 
 .wrappercard__chance {
-    font-size: 1.1em;
+    font-size: 1.1vw;
     padding: 0 2.5vw 1.5vh 2.5vw;
 }
 
@@ -50,7 +50,7 @@ body {
 .wrappercard__word__letter {
     padding: .5vh;
     font-weight: bold;
-    font-size: 1.2em;
+    font-size: 1.3vw;
 }
 
 .wrappercard__guessinput {
@@ -62,7 +62,7 @@ body {
 .wrappercard__new-game-btn {
     width: 12vw;
     height: 2.5vh;
-    font-size: 1.05em;
+    font-size: 1.3vh;
     background-color: #007BFF;
     color: white;
     border: none;
@@ -94,7 +94,7 @@ body {
     border-radius: 5px;
     margin-left: .2vw;
     margin-right: .2vw;
-    font-size: 1.2rem;
+    font-size: 1.2vw;
     font-weight: bold;
 }
 
